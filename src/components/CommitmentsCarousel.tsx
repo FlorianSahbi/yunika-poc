@@ -11,7 +11,9 @@ interface CommitmentsCarouselProps {
   commitments: CommitmentStoryblok[];
 }
 
-export default function CommitmentsCarousel({ commitments }: CommitmentsCarouselProps) {
+export default function CommitmentsCarousel({
+  commitments,
+}: CommitmentsCarouselProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = commitments.length;
 
@@ -48,25 +50,33 @@ export default function CommitmentsCarousel({ commitments }: CommitmentsCarousel
                   />
                 </div>
               )}
-              {item.title && <p className="mt-2 font-semibold text-center">{item.title}</p>}
+              {item.title && (
+                <p className="mt-2 font-semibold text-center">{item.title}</p>
+              )}
               {item.subtitle && (
-                <p className="mt-1 text-sm text-gray-200 text-center">{item.subtitle}</p>
+                <p className="mt-1 text-sm text-gray-200 text-center">
+                  {item.subtitle}
+                </p>
               )}
             </div>
           ))}
         </div>
 
-        <div className="mt-4 flex justify-center space-x-2 p-2 rounded-full mx-auto">
+        <div className="mt-4 flex justify-center space-x-4">
           {Array.from({ length: totalSlides }).map((_, idx) => (
             <button
               key={idx}
               onClick={() => slider.current?.moveToIdx(idx)}
-              className={clsx(
-                'w-2 h-2 rounded-full transition-colors',
-                currentSlide === idx ? 'bg-[#05AB94]' : 'bg-white'
-              )}
               aria-label={`Go to slide ${idx + 1}`}
-            />
+              className="h-12 w-12 flex items-center justify-center rounded-full"
+            >
+              <span
+                className={clsx(
+                  'block w-2 h-2 rounded-full transition-colors',
+                  currentSlide === idx ? 'bg-[#05AB94]' : 'bg-white'
+                )}
+              />
+            </button>
           ))}
         </div>
       </div>
@@ -84,9 +94,13 @@ export default function CommitmentsCarousel({ commitments }: CommitmentsCarousel
                 />
               </div>
             )}
-            {item.title && <p className="mt-2 font-semibold text-center">{item.title}</p>}
+            {item.title && (
+              <p className="mt-2 font-semibold text-center">{item.title}</p>
+            )}
             {item.subtitle && (
-              <p className="mt-1 text-sm text-gray-200 text-center">{item.subtitle}</p>
+              <p className="mt-1 text-sm text-gray-200 text-center">
+                {item.subtitle}
+              </p>
             )}
           </div>
         ))}

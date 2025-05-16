@@ -40,7 +40,6 @@ const Hero: React.FC<HeroProps> = ({ blok }) => {
             <motion.div className="absolute inset-0 -z-10" variants={fadeInBackground}>
               <VideoBackground
                 src={sec.background!.url}
-                poster="/videos/hero-poster.jpg"
                 className="object-cover absolute inset-0"
               />
               <div className="absolute inset-0 bg-black opacity-20 pointer-events-none" />
