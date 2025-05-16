@@ -60,7 +60,7 @@ export default async function SnowboardPage({ params }: PageProps): Promise<JSX.
     <main className="px-4 pt-16 lg:px-0">
       <Breadcrumb />
 
-      <section className="mb-8 flex flex-col gap-6 md:grid md:grid-cols-12 md:gap-4 items-start">
+      <section className="mb-8 flex flex-col gap-6 md:grid md:grid-cols-12 md:gap-16 items-start">
         <Guard cond={media.length > 0}>
           <ProductImage
             className="w-full md:col-start-2 md:col-span-6"
@@ -69,7 +69,7 @@ export default async function SnowboardPage({ params }: PageProps): Promise<JSX.
         </Guard>
 
         <ProductDetails
-          className="w-full md:col-span-4 md:sticky md:top-14"
+          className="w-full md:col-span-4 md:sticky md:top-28 md:mt-16"
           slug={slug}
           title={pageData.content.title}
           price={pageData.content.price}
