@@ -23,9 +23,9 @@ export default function Features({ className, features }: FeaturesProps): JSX.El
           <Guard key={i} cond={!!(title || description || media?.filename)}>
             <div className="bg-gray-100 p-6 rounded-lg flex flex-col">
               {title && (
-                <h3 className="text-2xl font-semibold text-center uppercase">
+                <p className="text-2xl font-semibold text-center uppercase">
                   {title}
-                </h3>
+                </p>
               )}
 
               {description && (

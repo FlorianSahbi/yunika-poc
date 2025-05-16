@@ -78,7 +78,7 @@ export default function CartPanel() {
                     />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-sm font-medium">{p.title}</h3>
+                    <p className="text-sm font-medium">{p.title}</p>
                     <p className="text-xs text-gray-600">Taille : {p.size}</p>
                     <p className="text-xs text-gray-600">
                       Quantité : {p.quantity}

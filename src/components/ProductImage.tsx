@@ -26,6 +26,8 @@ export default function ProductImage({
                 alt={img.alt ?? img.name ?? 'Product Image'}
                 fill
                 className="object-cover"
+                priority={idx < 2}
+                loading={idx < 2 ? 'eager' : 'lazy'}
               />
             )}
           </div>

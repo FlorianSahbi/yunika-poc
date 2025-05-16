@@ -40,7 +40,7 @@ export default function ArtistCard({
         </figure>
 
         <figcaption className="flex-1">
-          <h3
+          <p
             className="
               text-sm font-medium text-gray-800
               group-hover:text-red-600
@@ -48,7 +48,7 @@ export default function ArtistCard({
             "
           >
             Artwork by {name}
-          </h3>
+          </p>
           <p className="text-xs text-gray-500">
             Discover portfolio&nbsp;&rarr;
           </p>
