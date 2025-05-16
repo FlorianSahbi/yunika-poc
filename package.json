@@ -1,0 +1,36 @@
+{
+  "name": "storyblok-nextjs15",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "dev-experimental": "next dev --turbopack --experimental-https",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint --strict",
+    "pull-sb": "storyblok pull-components --space=338283",
+    "gen-sb-types": "mkdir -p src/types && storyblok generate-typescript-typedefs --sourceFilePaths=./components.338283.json --destinationFilePath=./src/types/storyblok.d.ts",
+    "build:sb-types": "mkdir -p src/types && storyblok pull-components --space=338283 && storyblok generate-typescript-typedefs --sourceFilePaths=./components.338283.json --destinationFilePath=./src/types/storyblok.d.ts"
+  },
+  "dependencies": {
+    "@storyblok/react": "^4.3.2",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.11.0",
+    "keen-slider": "^6.8.6",
+    "lucide-react": "^0.509.0",
+    "next": "^15.4.0-canary.30",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "storyblok-js-client": "^6.10.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.26.0",
+    "eslint-config-next": "^15.3.2",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
