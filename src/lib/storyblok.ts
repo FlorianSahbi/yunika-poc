@@ -8,7 +8,7 @@ import DoubleImage from '@/components/DoubleImages'
 import ImageEdito from '@/components/ImageEdito'
 
 export const getStoryblokApi = storyblokInit({
-    accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
+    accessToken: process.env.STORYBLOK_TOKEN,
     components: {
         page: Page,
         hero: Hero,

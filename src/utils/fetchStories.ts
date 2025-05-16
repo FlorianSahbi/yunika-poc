@@ -20,7 +20,7 @@ export async function fetchStories<T>(
 
   const url = new URL("https://api.storyblok.com/v2/cdn/stories");
   url.searchParams.set("version", version);
-  url.searchParams.set("token", process.env.NEXT_PUBLIC_STORYBLOK_TOKEN!);
+  url.searchParams.set("token", process.env.STORYBLOK_TOKEN!);
   url.searchParams.set("per_page", "100");
   url.searchParams.set(
     "resolve_relations",
