@@ -113,8 +113,8 @@ export default async function CollectionsPage({
                   href={`?cols=${cols}`}
                   className={`p-2 rounded-md transition-colors ${
                     isActive
-                      ? 'bg-[#038674] text-[#231F20]'
-                      : 'text-[#038674] hover:bg-[#038674]/20'
+                      ? 'bg-white text-[#231F20]'
+                      : 'text-white hover:bg-[#038674]/20'
                   }`}
                   aria-label={`${cols}-column view`}
                 >
