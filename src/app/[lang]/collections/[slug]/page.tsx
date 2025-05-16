@@ -103,7 +103,7 @@ export default async function CollectionsPage({
             ))}
           </div>
           <div className="hidden md:flex items-center gap-3 ml-4">
-            <span className="text-sm font-semibold text-[#038674]">Grid</span>
+            <span className="text-sm font-semibold text-white">Grid</span>
             {[3, 4].map((cols) => {
               const Icon = cols === 3 ? Columns : LayoutGrid;
               const isActive = displayCols === cols;
