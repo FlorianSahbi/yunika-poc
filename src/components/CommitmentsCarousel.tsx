@@ -46,6 +46,7 @@ export default function CommitmentsCarousel({
                     src={item.media.filename}
                     alt={item.media.alt ?? ''}
                     fill
+                    loading="lazy"
                     className="object-contain"
                   />
                 </div>

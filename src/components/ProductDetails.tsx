@@ -53,7 +53,7 @@ function PurchaseForm({ sizes }: PurchaseFormProps): JSX.Element {
         type="button"
         className={
           "w-full flex items-center justify-center gap-2 " +
-          "py-3 text-sm font-semibold text-white bg-teal-600 rounded-md " +
+          "py-3 text-sm font-semibold text-white bg-[#038674] rounded-md " +
           "hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 " +
           "transition transform duration-150 ease-in-out hover:shadow hover:-translate-y-0.5 active:scale-95"
         }

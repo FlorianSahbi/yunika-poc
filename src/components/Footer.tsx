@@ -54,6 +54,7 @@ export default function Footer({ blok }: FooterProps): JSX.Element {
               src={blok.logo.filename}
               alt={blok.logo.alt ?? ''}
               fill
+              loading="lazy"
               className="object-contain"
             />
           </div>
