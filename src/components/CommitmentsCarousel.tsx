@@ -73,7 +73,7 @@ export default function CommitmentsCarousel({
               <span
                 className={clsx(
                   'block w-2 h-2 rounded-full transition-colors',
-                  currentSlide === idx ? 'bg-[#05AB94]' : 'bg-white'
+                  currentSlide === idx ? 'bg-[#038674]' : 'bg-white'
                 )}
               />
             </button>

@@ -95,15 +95,15 @@ export default async function CollectionsPage({
             {collections.map((cat) => (
               <Link
                 key={cat.full_slug}
-                href={`/${lang}/collections/${cat.full_slug}`}
-                className="inline-block text-sm font-semibold text-[#05AB94] hover:text-[#AA1F21] transition-colors"
+                href={`/${lang}/${cat.full_slug}`}
+                className="inline-block text-sm font-semibold text-white hover:text-[#038674] transition-colors"
               >
                 {cat.name}
               </Link>
             ))}
           </div>
           <div className="hidden md:flex items-center gap-3 ml-4">
-            <span className="text-sm font-semibold text-[#05AB94]">Grid</span>
+            <span className="text-sm font-semibold text-[#038674]">Grid</span>
             {[3, 4].map((cols) => {
               const Icon = cols === 3 ? Columns : LayoutGrid;
               const isActive = displayCols === cols;
@@ -113,8 +113,8 @@ export default async function CollectionsPage({
                   href={`?cols=${cols}`}
                   className={`p-2 rounded-md transition-colors ${
                     isActive
-                      ? 'bg-[#05AB94] text-[#231F20]'
-                      : 'text-[#05AB94] hover:bg-[#05AB94]/20'
+                      ? 'bg-[#038674] text-[#231F20]'
+                      : 'text-[#038674] hover:bg-[#038674]/20'
                   }`}
                   aria-label={`${cols}-column view`}
                 >
@@ -172,7 +172,7 @@ export default async function CollectionsPage({
                         {price}€
                       </p>
                     </div>
-                    <p className="mt-1 text-xs font-medium text-[#05AB94] uppercase">
+                    <p className="mt-1 text-xs font-medium text-[#038674] uppercase">
                       All-Mountain / Freestyle / Park
                     </p>
                   </div>
