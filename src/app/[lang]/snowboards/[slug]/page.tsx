@@ -85,21 +85,21 @@ export default async function SnowboardPage({ params }: PageProps): Promise<JSX.
 
       <Guard cond={camber.length > 0}>
         <CamberSpec
-          className="px-4 my-8 w-full md:col-start-2 md:col-end-[-2]"
+          className="px-0 md:px-4 my-8 w-full md:col-start-2 md:col-end-[-2]"
           camber={camber}
         />
       </Guard>
 
       <Guard cond={tech.length > 0}>
         <TechSpec
-          className="px-4 my-8 w-full md:col-start-2 md:col-end-[-2]"
+          className="px-0 md:px-4 my-8 w-full md:col-start-2 md:col-end-[-2]"
           tech={tech}
         />
       </Guard>
 
       <Guard cond={features.length > 0}>
         <Features
-          className="px-4 mt-8 mb-16 w-full"
+          className="px-0 md:px-4 mt-8 mb-16 w-full"
           features={features}
         />
       </Guard>
