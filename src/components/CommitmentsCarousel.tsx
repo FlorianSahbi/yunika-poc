@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { useKeenSlider } from 'keen-slider/react';
+import { useKeenSlider, KeenSliderInstance } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import clsx from 'clsx';
 import type { CommitmentStoryblok } from '@/types/storyblok';
@@ -16,20 +16,63 @@ export default function CommitmentsCarousel({
 }: CommitmentsCarouselProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = commitments.length;
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isHovering = useRef<boolean>(false);
 
-  const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
-    loop: true,
-    slides: { perView: 1 },
-    breakpoints: {
-      '(min-width: 768px)': {
-        loop: false,
-        slides: { perView: 3, spacing: 24 },
+  const autoplayPlugin = (slider: KeenSliderInstance) => {
+    function clearNextTimeout() {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    }
+    function nextTimeout() {
+      clearNextTimeout();
+      if (isHovering.current) return;
+      timerRef.current = setTimeout(() => {
+        slider.next();
+      }, 3000);
+    }
+
+    slider.on('created', () => {
+      slider.container.addEventListener('mouseover', () => {
+        isHovering.current = true;
+        clearNextTimeout();
+      });
+      slider.container.addEventListener('mouseout', () => {
+        isHovering.current = false;
+        nextTimeout();
+      });
+      nextTimeout();
+    });
+    slider.on('dragStarted', clearNextTimeout);
+    slider.on('animationEnded', nextTimeout);
+    slider.on('updated', nextTimeout);
+  };
+
+  const [sliderRef, slider] = useKeenSlider<HTMLDivElement>(
+    {
+      loop: true,
+      slides: { perView: 1 },
+      breakpoints: {
+        '(min-width: 768px)': {
+          loop: false,
+          slides: { perView: 3, spacing: 24 },
+        },
+      },
+      slideChanged(s) {
+        setCurrentSlide(s.track.details.rel);
       },
     },
-    slideChanged(s) {
-      setCurrentSlide(s.track.details.rel);
-    },
-  });
+    [autoplayPlugin]
+  );
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="container mx-auto py-8">
@@ -52,7 +95,9 @@ export default function CommitmentsCarousel({
                 </div>
               )}
               {item.title && (
-                <p className="mt-2 font-semibold text-center">{item.title}</p>
+                <p className="mt-2 font-semibold text-center">
+                  {item.title}
+                </p>
               )}
               {item.subtitle && (
                 <p className="mt-1 text-sm text-gray-200 text-center">
@@ -62,7 +107,6 @@ export default function CommitmentsCarousel({
             </div>
           ))}
         </div>
-
         <div className="mt-4 flex justify-center">
           {Array.from({ length: totalSlides }).map((_, idx) => (
             <button
@@ -96,7 +140,9 @@ export default function CommitmentsCarousel({
               </div>
             )}
             {item.title && (
-              <p className="mt-2 font-semibold text-center uppercase">{item.title}</p>
+              <p className="mt-2 font-semibold text-center uppercase">
+                {item.title}
+              </p>
             )}
             {item.subtitle && (
               <p className="text-sm text-gray-200 text-center">

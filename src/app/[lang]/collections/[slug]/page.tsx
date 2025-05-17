@@ -169,6 +169,7 @@ export default async function CollectionsPage({
                       <p className="text-base font-semibold text-[#231F20] truncate">
                         {prodTitle}
                       </p>
+                      {/* Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR" }).format(number) */}
                       <p className="text-xs font-bold text-[#AA1F21] ml-2">
                         {lang === 'en' ? `$${price}` : `${price}€`}
                       </p>
