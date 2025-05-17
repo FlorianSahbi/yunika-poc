@@ -42,7 +42,7 @@ export default function Navigation({ blok }: NavigationProps): JSX.Element {
                   src={logo.filename}
                   alt="Yunika — retour à l’accueil"
                   fill
-                  objectFit='contain'
+                  style={{ objectFit: 'contain' }}
                 />
               </div>
             )}
@@ -57,23 +57,21 @@ export default function Navigation({ blok }: NavigationProps): JSX.Element {
                 !('name' in l)
               )
                 return null;
-              const link = l as { full_slug: string; name: string };
+
               return (
                 <Link
                   key={i}
-                  href={`/${link.full_slug}`}
+                  href={`/${l.full_slug}`}
                   className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
                 >
-                  {link.name}
+                  {l.content.title}
                 </Link>
               );
             })}
           </div>
 
           <div className="flex items-center space-x-3">
-            <div className="hidden md:block">
-              <LanguageSwitcher />
-            </div>
+            <LanguageSwitcher />
 
             <button
               aria-label="Ouvrir le panier"
@@ -106,34 +104,18 @@ export default function Navigation({ blok }: NavigationProps): JSX.Element {
                 !('name' in l)
               )
                 return null;
-              const link = l as { full_slug: string; name: string };
+
               return (
                 <Link
                   key={i}
-                  href={`/${link.full_slug}`}
+                  href={`/${l.full_slug}`}
                   onClick={() => setMobileOpen(false)}
                   className="text-lg font-medium text-gray-700 hover:text-gray-900 transition-colors"
                 >
-                  {link.name}
+                  {l.content.title}
                 </Link>
               );
             })}
-          </div>
-
-          <div className="mt-auto pb-8 flex flex-col space-y-4">
-            <LanguageSwitcher />
-
-            <button
-              aria-label="Ouvrir le panier"
-              onClick={() => {
-                toggleOpen();
-                setMobileOpen(false);
-              }}
-              className="flex items-center space-x-1 px-2 py-1 text-xs font-semibold uppercase rounded hover:bg-gray-100 transition"
-            >
-              <ShoppingBasket className="h-5 w-5" />
-              <span>{itemCount}</span>
-            </button>
           </div>
         </div>
       )}

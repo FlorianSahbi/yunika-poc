@@ -1,11 +1,12 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Globe } from 'lucide-react';
+import type { JSX } from 'react';
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher(): JSX.Element {
   const pathname = usePathname();
-  const router = useRouter();
   const segments = pathname.split('/').filter(Boolean);
 
   const current = segments[0] === 'en' ? 'en' : 'fr';
@@ -15,13 +16,15 @@ export default function LanguageSwitcher() {
   const nextPath = `/${target}${rest ? `/${rest}` : ''}`;
 
   return (
-    <button
+    <Link
+      replace
+      href={nextPath}
+      scroll={false}
       aria-label={`Passer en ${target.toUpperCase()}`}
-      onClick={() => router.push(nextPath)}
       className="flex items-center space-x-1 px-2 py-1 text-xs font-semibold uppercase rounded hover:bg-gray-100 transition"
     >
       <Globe className="h-5 w-5" />
       <span>{target}</span>
-    </button>
+    </Link>
   );
 }

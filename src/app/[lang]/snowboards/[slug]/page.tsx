@@ -39,7 +39,7 @@ interface PageProps {
 }
 
 export default async function SnowboardPage({ params }: PageProps): Promise<JSX.Element> {
-  const { lang, slug } = params;
+  const { lang, slug } = await params;
 
   if (lang !== 'fr' && lang !== 'en') notFound();
 
@@ -57,8 +57,10 @@ export default async function SnowboardPage({ params }: PageProps): Promise<JSX.
   const { media = [], camber = [], tech = [], features = [] } = pageData.content;
 
   return (
-    <main className="px-4 pt-16 lg:px-0">
-      <Breadcrumb />
+    <main className="px-4 pt-12 lg:px-0">
+      <section className="md:grid md:grid-cols-12 md:gap-16">
+        <Breadcrumb className='md:col-start-2 md:col-end-[-2]' />
+      </section>
 
       <section className="mb-8 flex flex-col gap-6 md:grid md:grid-cols-12 md:gap-16 items-start">
         <Guard cond={media.length > 0}>
@@ -82,21 +84,21 @@ export default async function SnowboardPage({ params }: PageProps): Promise<JSX.
 
       <Guard cond={camber.length > 0}>
         <CamberSpec
-          className="my-8 w-full md:col-start-2 md:col-end-[-2]"
+          className="px-4 my-8 w-full md:col-start-2 md:col-end-[-2]"
           camber={camber}
         />
       </Guard>
 
       <Guard cond={tech.length > 0}>
         <TechSpec
-          className="my-8 w-full md:col-start-2 md:col-end-[-2]"
+          className="px-4 my-8 w-full md:col-start-2 md:col-end-[-2]"
           tech={tech}
         />
       </Guard>
 
       <Guard cond={features.length > 0}>
         <Features
-          className="mt-8 mb-16 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          className="px-4 mt-8 mb-16 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
           features={features}
         />
       </Guard>

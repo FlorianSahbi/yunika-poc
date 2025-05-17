@@ -9,7 +9,7 @@ export default function Breadcrumb({
   className,
 }: BreadcrumbProps): JSX.Element {
   return (
-    <nav className={clsx("col-start-2 col-end-[-2] text-sm text-gray-600", className)}>
+    <nav className={clsx(className, "text-sm text-gray-600")}>
       Accueil / Snowboard / Home
     </nav>
   );

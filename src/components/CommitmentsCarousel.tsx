@@ -96,10 +96,10 @@ export default function CommitmentsCarousel({
               </div>
             )}
             {item.title && (
-              <p className="mt-2 font-semibold text-center">{item.title}</p>
+              <p className="mt-2 font-semibold text-center uppercase">{item.title}</p>
             )}
             {item.subtitle && (
-              <p className="mt-1 text-sm text-gray-200 text-center">
+              <p className="text-sm text-gray-200 text-center">
                 {item.subtitle}
               </p>
             )}

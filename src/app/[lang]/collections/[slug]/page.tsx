@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { fetchStory } from '@/utils/fetchStory';
-import { Columns, LayoutGrid } from 'lucide-react';
+// import { Columns, LayoutGrid } from 'lucide-react';
 import type { ISbStoryData } from '@storyblok/react/rsc';
 import type { JSX } from 'react';
 import type { CollectionStoryblok } from '@/types/storyblok';
@@ -38,7 +38,7 @@ interface PageProps {
 
 export default async function CollectionsPage({
   params,
-  searchParams,
+  // searchParams,
 }: PageProps): Promise<JSX.Element> {
   const { lang, slug } = params;
 
@@ -57,7 +57,7 @@ export default async function CollectionsPage({
   const hasCollections = collections.length > 0;
   const hasProducts = products.length > 0;
 
-  const displayCols = searchParams.cols === '3' ? 3 : 4;
+  // const displayCols = searchParams.cols === '3' ? 3 : 4;
 
   return (
     <main>
@@ -95,14 +95,14 @@ export default async function CollectionsPage({
             {collections.map((cat) => (
               <Link
                 key={cat.full_slug}
-                href={`/${lang}/${cat.full_slug}`}
+                href={`/${cat.full_slug}`}
                 className="inline-block text-sm font-semibold text-white hover:text-[#038674] transition-colors"
               >
-                {cat.name}
+                {cat.content.title}
               </Link>
             ))}
           </div>
-          <div className="hidden md:flex items-center gap-3 ml-4">
+          {/* <div className="hidden md:flex items-center gap-3 ml-4">
             <span className="text-sm font-semibold text-white">Grid</span>
             {[3, 4].map((cols) => {
               const Icon = cols === 3 ? Columns : LayoutGrid;
@@ -110,30 +110,31 @@ export default async function CollectionsPage({
               return (
                 <Link
                   key={cols}
+                  scroll={false}
                   href={`?cols=${cols}`}
-                  className={`p-2 rounded-md transition-colors ${
-                    isActive
+                  className={`p-2 rounded-md transition-colors ${isActive
                       ? 'bg-white text-[#231F20]'
                       : 'text-white hover:bg-[#038674]/20'
-                  }`}
+                    }`}
                   aria-label={`${cols}-column view`}
                 >
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </Link>
               );
             })}
-          </div>
+          </div> */}
         </div>
       </Guard>
 
       <Guard cond={hasProducts}>
-        <div className="p-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+        <div className={`px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-8`}>
           {products.map((prod) => {
             const {
               slug: prodSlug,
               content: { title: prodTitle, media, price },
             } = prod;
             const image = Array.isArray(media) ? media[0] : null;
+            const imageHover = Array.isArray(media) ? media[1] : null;
 
             return (
               <article key={prodSlug} className="col-span-1">
@@ -141,7 +142,7 @@ export default async function CollectionsPage({
                   href={`/${lang}/snowboards/${prodSlug}`}
                   className="block group"
                 >
-                  <div className="relative aspect-[4/6] w-full overflow-hidden rounded-lg">
+                  <div className="relative aspect-[4/6] w-full overflow-hidden rounded-lg border shadow-sm">
                     {image && (
                       <Image
                         src={image.filename}
@@ -153,15 +154,15 @@ export default async function CollectionsPage({
                         draggable={false}
                       />
                     )}
-                    <Image
-                      src="https://a.storyblok.com/f/338283/1000x1000/8a903d71c7/the-evergreen-front-real.jpg"
+                    {imageHover && (<Image
+                      src={imageHover.filename}
                       alt="Preview"
                       fill
                       style={{ objectFit: 'cover' }}
                       className="absolute inset-0 object-cover opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"
                       loading="eager"
                       draggable={false}
-                    />
+                    />)}
                   </div>
                   <div className="ml-2 mt-2">
                     <div className="flex justify-between items-baseline">

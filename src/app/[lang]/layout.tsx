@@ -47,17 +47,24 @@ export const metadata: Metadata = {
   },
 }
 
+type Lang = 'fr' | 'en';
+
 export default async function RootLayout({
   children,
+  params
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  params: { lang: Lang; slug: string };
 }): Promise<JSX.Element> {
+  const { lang } = await params;
+
   const [hdrResult, ftrResult] = await Promise.all([
     (async () => {
       try {
         const { stories } = await fetchStories<HeaderStoryblok>(
           'published',
-          'global'
+          'global',
+          { locale: lang }
         )
         return stories.find(
           (s): s is ISbStoryData<HeaderStoryblok> =>
@@ -72,7 +79,8 @@ export default async function RootLayout({
       try {
         const { stories } = await fetchStories<FooterStoryblok>(
           'published',
-          'global'
+          'global',
+          { locale: lang }
         )
         return stories.find(
           (s): s is ISbStoryData<FooterStoryblok> =>

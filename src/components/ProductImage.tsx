@@ -18,7 +18,7 @@ export default function ProductImage({
         {media.map((img, idx) => (
           <div
             key={img.id ?? idx}
-            className="relative aspect-[4/7] w-full overflow-hidden rounded-lg"
+            className="relative aspect-[4/7] w-full overflow-hidden rounded-lg border shadow-sm"
           >
             {img.filename && (
               <Image

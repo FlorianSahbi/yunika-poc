@@ -43,7 +43,7 @@ export default function ArtistCard({
           <p
             className="
               text-sm font-medium text-gray-800
-              group-hover:text-red-600
+              group-hover:text-[#038674]
               transition-colors duration-200
             "
           >
