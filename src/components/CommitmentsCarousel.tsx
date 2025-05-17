@@ -63,7 +63,7 @@ export default function CommitmentsCarousel({
           ))}
         </div>
 
-        <div className="mt-4 flex justify-center space-x-4">
+        <div className="mt-4 flex justify-center">
           {Array.from({ length: totalSlides }).map((_, idx) => (
             <button
               key={idx}

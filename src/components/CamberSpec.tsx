@@ -18,7 +18,7 @@ export default function CamberSpec({
 
   return (
     <section className={clsx(className)}>
-      <h2 className="text-3xl font-bold">Camber Spec</h2>
+      <h2 className="text-3xl font-bold">{spec.title}</h2>
 
       <div className="h-px bg-gray-400 mb-8" />
 

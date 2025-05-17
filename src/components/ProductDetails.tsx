@@ -76,6 +76,7 @@ interface ProductDetailsProps {
   description?: RichtextStoryblok;
   artist?: ISbStoryData<ArtistStoryblok> | string;
   rating?: RatingStoryblok[];
+  lang?: 'en' | 'fr';
 }
 
 export default function ProductDetails({
@@ -87,6 +88,7 @@ export default function ProductDetails({
   description,
   artist,
   rating = [],
+  lang,
 }: ProductDetailsProps): JSX.Element {
   const typeLabels = types
     .map((t) => (typeof t === "object" && "content" in t ? t.content.label : t))
@@ -103,7 +105,9 @@ export default function ProductDetails({
 
       {title && <h1 className="text-3xl font-extrabold">{title}</h1>}
 
-      {price && <p className="text-2xl font-semibold">{price}€</p>}
+      {price && <p className="text-2xl font-semibold">
+        {lang === 'en' ? `$${price}` : `${price}€`}
+      </p>}
 
       <PurchaseForm slug={slug} sizes={[143, 146, 149, 152]} />
 

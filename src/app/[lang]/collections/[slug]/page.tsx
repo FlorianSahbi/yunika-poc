@@ -61,7 +61,7 @@ export default async function CollectionsPage({
 
   return (
     <main>
-      <section className="relative h-64 md:h-[70vh] w-full overflow-hidden">
+      <section className="relative h-[70vh] w-full overflow-hidden">
         <Image
           src="https://a.storyblok.com/f/338283/2560x1374/71026cd960/yunika-1.webp"
           alt="Bannière collection"
@@ -127,7 +127,7 @@ export default async function CollectionsPage({
       </Guard>
 
       <Guard cond={hasProducts}>
-        <div className={`px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-8`}>
+        <div className={`px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 my-16`}>
           {products.map((prod) => {
             const {
               slug: prodSlug,
@@ -170,7 +170,7 @@ export default async function CollectionsPage({
                         {prodTitle}
                       </p>
                       <p className="text-xs font-bold text-[#AA1F21] ml-2">
-                        {price}€
+                        {lang === 'en' ? `$${price}` : `${price}€`}
                       </p>
                     </div>
                     <p className="mt-1 text-xs font-medium text-[#038674] uppercase">

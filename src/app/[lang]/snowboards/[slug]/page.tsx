@@ -4,7 +4,6 @@ import { fetchStories } from '@/utils/fetchStories';
 import type { SnowboardStoryblok } from '@/types/storyblok';
 import type { JSX } from 'react';
 import type { ISbStoryData } from 'storyblok-js-client';
-import Breadcrumb from '@/components/Breadcrumb';
 import CamberSpec from '@/components/CamberSpec';
 import Features from '@/components/Features';
 import ProductDetails from '@/components/ProductDetails';
@@ -57,10 +56,11 @@ export default async function SnowboardPage({ params }: PageProps): Promise<JSX.
   const { media = [], camber = [], tech = [], features = [] } = pageData.content;
 
   return (
-    <main className="px-4 pt-12 lg:px-0">
-      <section className="md:grid md:grid-cols-12 md:gap-16">
+    // pt-12 + 16 : 12 Nav + Default Spacing
+    <main className="px-4 pt-28  lg:px-0">
+      {/* <section className="md:grid md:grid-cols-12">
         <Breadcrumb className='md:col-start-2 md:col-end-[-2]' />
-      </section>
+      </section> */}
 
       <section className="mb-8 flex flex-col gap-6 md:grid md:grid-cols-12 md:gap-16 items-start">
         <Guard cond={media.length > 0}>
@@ -79,6 +79,7 @@ export default async function SnowboardPage({ params }: PageProps): Promise<JSX.
           types={pageData.content.types}
           artist={pageData.content.artist}
           rating={pageData.content.rating}
+          lang={lang}
         />
       </section>
 
@@ -98,7 +99,7 @@ export default async function SnowboardPage({ params }: PageProps): Promise<JSX.
 
       <Guard cond={features.length > 0}>
         <Features
-          className="px-4 mt-8 mb-16 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          className="px-4 mt-8 mb-16 w-full"
           features={features}
         />
       </Guard>

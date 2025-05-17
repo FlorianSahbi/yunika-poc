@@ -16,7 +16,7 @@ export default function TechSpec({
   return (
     <Guard cond={tech.length > 0}>
       <section className={clsx(className)}>
-        <h2 className="text-3xl font-bold">Tech Spec</h2>
+        <h2 className="text-3xl font-bold">{tech[0].title}</h2>
         <div className="h-px bg-gray-400 mb-8" />
         {tech.map((block) => (
           <div key={block._uid} className="mb-8">

@@ -93,13 +93,7 @@ export default function CartPanel() {
               <button
                 className="w-full py-3 bg-black text-white uppercase font-semibold rounded"
               >
-                Valider ma commande —{' '}
-                {items
-                  .reduce(
-                    (sum, p) => sum + Number(p.price.replace(/[^0-9]/g, '')),
-                    0
-                  )}
-                €
+                Valider ma commande — 1148,00€
               </button>
             </div>
           </motion.aside>
