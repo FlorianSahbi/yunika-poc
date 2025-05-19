@@ -9,14 +9,36 @@ import type { CollectionStoryblok, TypeStoryblok } from '@/types/storyblok'
 import Guard from '@/components/Guard'
 import { fetchStories } from '@/utils/fetchStories'
 import { getTranslations } from 'next-intl/server'
+import { Locale } from 'next-intl'
+import { Metadata } from 'next/types'
 
-type Lang = 'fr' | 'en'
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: Locale; slug: string }
+}): Promise<Metadata> {
+  const { lang, slug } = params
+  let pageData: ISbStoryData<CollectionStoryblok>
+  try {
+    pageData = await fetchStory<CollectionStoryblok>(
+      'published',
+      ['collections', slug],
+      { locale: lang },
+    )
+  } catch {
+    notFound()
+  }
+
+  return {
+    title: `${pageData.name} | Yunika Boards`,
+  }
+}
 
 export async function generateStaticParams(): Promise<
-  { lang: Lang; slug: string }[]
+  { lang: Locale; slug: string }[]
 > {
-  const locales: Lang[] = ['fr', 'en']
-  const params: { lang: Lang; slug: string }[] = []
+  const locales: Locale[] = ['fr', 'en']
+  const params: { lang: Locale; slug: string }[] = []
 
   for (const lang of locales) {
     const { stories } = await fetchStories<CollectionStoryblok>(
@@ -33,7 +55,7 @@ export async function generateStaticParams(): Promise<
 }
 
 interface PageProps {
-  params: { lang: Lang; slug: string }
+  params: { lang: Locale; slug: string }
   searchParams: { cols?: string }
 }
 
@@ -42,7 +64,7 @@ export default async function CollectionsPage({
   // searchParams,
 }: PageProps): Promise<JSX.Element> {
   const t = await getTranslations()
-  const { lang, slug } = params
+  const { lang, slug } = await params
   const currency = lang === 'en' ? 'USD' : 'EUR'
 
   let pageData: ISbStoryData<CollectionStoryblok>

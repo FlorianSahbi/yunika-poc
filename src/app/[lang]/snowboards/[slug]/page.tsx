@@ -10,14 +10,36 @@ import ProductDetails from '@/components/ProductDetails'
 import ProductImage from '@/components/ProductImage'
 import TechSpec from '@/components/TechSpec'
 import Guard from '@/components/Guard'
+import { Metadata } from 'next/types'
+import { Locale } from 'next-intl'
 
-type Lang = 'fr' | 'en'
+export async function generateMetadata({
+  params,
+}: {
+  params: { lang: Locale; slug: string }
+}): Promise<Metadata> {
+  const { lang, slug } = params
+  let pageData: ISbStoryData<SnowboardStoryblok>
+  try {
+    pageData = await fetchStory<SnowboardStoryblok>(
+      'published',
+      ['snowboards', slug],
+      { locale: lang },
+    )
+  } catch {
+    notFound()
+  }
+
+  return {
+    title: `${pageData.name} | Yunika Boards`,
+  }
+}
 
 export async function generateStaticParams(): Promise<
-  { lang: Lang; slug: string }[]
+  { lang: Locale; slug: string }[]
 > {
-  const locales: Lang[] = ['fr', 'en']
-  const params: { lang: Lang; slug: string }[] = []
+  const locales: Locale[] = ['fr', 'en']
+  const params: { lang: Locale; slug: string }[] = []
 
   for (const lang of locales) {
     const { stories } = await fetchStories<SnowboardStoryblok>(
@@ -34,7 +56,7 @@ export async function generateStaticParams(): Promise<
 }
 
 interface PageProps {
-  params: { lang: Lang; slug: string }
+  params: { lang: Locale; slug: string }
 }
 
 export default async function SnowboardPage({
@@ -54,6 +76,8 @@ export default async function SnowboardPage({
   } catch {
     notFound()
   }
+
+  console.log(pageData)
 
   const { media = [], camber = [], tech = [], features = [] } = pageData.content
 
