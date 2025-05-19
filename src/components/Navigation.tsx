@@ -6,9 +6,11 @@ import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import { useCart } from '@/components/CartContext'
 import { ShoppingBasket, Menu, X } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 import type { JSX } from 'react'
 import type { HeaderStoryblok, AssetStoryblok } from '@/types/storyblok'
 import LanguageSwitcher from './LanguageSwitcher'
+import { useLocale } from 'next-intl'
 
 interface NavigationProps {
   blok: HeaderStoryblok
@@ -20,6 +22,8 @@ export default function Navigation({ blok }: NavigationProps): JSX.Element {
   const logo: AssetStoryblok | undefined = blok.logo
   const links = Array.isArray(blok.links) ? blok.links : []
   const [mobileOpen, setMobileOpen] = useState(false)
+  const pathname = usePathname()
+  const locale = useLocale()
 
   useEffect(() => {
     document.body.classList.toggle('overflow-hidden', mobileOpen)
@@ -51,20 +55,30 @@ export default function Navigation({ blok }: NavigationProps): JSX.Element {
           <div className="hidden space-x-6 md:flex">
             {links.map((l, i) => {
               if (
+                !l ||
                 typeof l !== 'object' ||
-                l === null ||
                 !('full_slug' in l) ||
                 !('name' in l)
               )
                 return null
+              const href =
+                locale === 'en' ? `/en/${l.full_slug}` : `/${l.full_slug}`
+              const isActive = pathname === href
 
               return (
                 <Link
                   key={i}
-                  href={`/${l.full_slug}`}
-                  className="text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
+                  href={href}
+                  className="group relative text-sm font-medium text-gray-700 transition-colors hover:text-gray-900"
                 >
-                  {l.content.title}
+                  <span className="relative z-10">{l.content.title}</span>
+                  <span
+                    className={
+                      `absolute bottom-0 left-0 h-px w-full origin-left transform bg-current transition-transform duration-200 ` +
+                      (isActive ? 'scale-x-100' : 'scale-x-0') +
+                      ' group-hover:scale-x-100'
+                    }
+                  />
                 </Link>
               )
             })}
@@ -102,21 +116,30 @@ export default function Navigation({ blok }: NavigationProps): JSX.Element {
           <div className="mt-4 flex flex-col space-y-4">
             {links.map((l, i) => {
               if (
+                !l ||
                 typeof l !== 'object' ||
-                l === null ||
                 !('full_slug' in l) ||
                 !('name' in l)
               )
                 return null
+              const href = `/${l.full_slug}`
+              const isActive = pathname === href
 
               return (
                 <Link
                   key={i}
-                  href={`/${l.full_slug}`}
+                  href={href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-lg font-medium text-gray-700 transition-colors hover:text-gray-900"
+                  className="group relative text-lg font-medium text-gray-700 transition-colors hover:text-gray-900"
                 >
-                  {l.content.title}
+                  <span className="relative z-10">{l.content.title}</span>
+                  <span
+                    className={
+                      `absolute bottom-0 left-0 h-px w-full origin-left transform bg-current transition-transform duration-200 ` +
+                      (isActive ? 'scale-x-100' : 'scale-x-0') +
+                      ' group-hover:scale-x-100'
+                    }
+                  />
                 </Link>
               )
             })}

@@ -26,6 +26,7 @@ const fadeInBackground = {
     transition: { duration: 1.2, ease: 'easeOut' },
   },
 }
+
 const fadeInContent = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -58,7 +59,19 @@ const Hero: React.FC<HeroProps> = ({ blok }) => {
                 src={sec.background!.url}
                 className="absolute inset-0 object-cover"
               />
-              <div className="pointer-events-none absolute inset-0 bg-black opacity-20" />
+              <div className="pointer-events-none absolute inset-0 bg-black/10" />
+              <div
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  backgroundImage: `repeating-linear-gradient(
+                    45deg,
+                    rgba(0,0,0,0.1) 0,
+                    rgba(0,0,0,0.1) 1px,
+                    transparent 1px,
+                    transparent 4px
+                  )`,
+                }}
+              />
             </motion.div>
           </Guard>
 
@@ -81,7 +94,7 @@ const Hero: React.FC<HeroProps> = ({ blok }) => {
               })()}
 
             <motion.h2
-              className="text-5xl font-extrabold text-white lg:text-6xl"
+              className="text-5xl font-extrabold text-white drop-shadow-[0_2px_1px_rgba(0,0,0,0.8)] lg:text-6xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8, ease: 'easeOut' }}
