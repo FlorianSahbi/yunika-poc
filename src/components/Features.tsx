@@ -1,22 +1,25 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import clsx from 'clsx';
-import { useKeenSlider } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
-import Guard from '@/components/Guard';
-import type { JSX } from 'react';
-import type { ISbStoryData } from '@storyblok/react/rsc';
-import type { FeaturesStoryblok } from '@/types/storyblok';
+import React, { useState } from 'react'
+import Image from 'next/image'
+import clsx from 'clsx'
+import { useKeenSlider } from 'keen-slider/react'
+import 'keen-slider/keen-slider.min.css'
+import Guard from '@/components/Guard'
+import type { JSX } from 'react'
+import type { ISbStoryData } from '@storyblok/react/rsc'
+import type { FeaturesStoryblok } from '@/types/storyblok'
 
 interface FeaturesProps {
-  className?: string;
-  features: ISbStoryData<FeaturesStoryblok>[];
+  className?: string
+  features: ISbStoryData<FeaturesStoryblok>[]
 }
 
-export default function Features({ className, features }: FeaturesProps): JSX.Element | null {
-  const [currentSlide, setCurrentSlide] = useState(0);
+export default function Features({
+  className,
+  features,
+}: FeaturesProps): JSX.Element | null {
+  const [currentSlide, setCurrentSlide] = useState(0)
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
     loop: true,
@@ -30,16 +33,16 @@ export default function Features({ className, features }: FeaturesProps): JSX.El
       '(min-width: 1280px)': { slides: { perView: 4, spacing: 24 } },
     },
     slideChanged(s) {
-      setCurrentSlide(s.track.details.rel);
+      setCurrentSlide(s.track.details.rel)
     },
-  });
+  })
 
-  const items = features ?? [];
+  const items = features ?? []
   if (items.length === 0) {
-    return null;
+    return null
   }
 
-  const totalSlides = items.length;
+  const totalSlides = items.length
 
   return (
     <section className={clsx(className)}>
@@ -47,28 +50,30 @@ export default function Features({ className, features }: FeaturesProps): JSX.El
         {items.map((f, i) => (
           <Guard
             key={i}
-            cond={!!(
-              f.content.title || f.content.description || f.content.media?.filename
-            )}
+            cond={
+              !!(
+                f.content.title ||
+                f.content.description ||
+                f.content.media?.filename
+              )
+            }
           >
-            <div className="keen-slider__slide bg-gray-100 p-6 rounded-lg flex flex-col">
+            <div className="keen-slider__slide flex flex-col rounded-lg bg-gray-100 p-6">
               {f.content.title && (
-                <p className="text-2xl font-semibold text-center uppercase mb-4">
+                <p className="mb-4 text-center text-2xl font-semibold uppercase">
                   {f.content.title}
                 </p>
               )}
               {f.content.description && (
-                <p className="text-sm text-gray-700 flex-1 text-center">
+                <p className="flex-1 text-center text-sm text-gray-700">
                   {f.content.description}
                 </p>
               )}
               {f.content.media?.filename && (
-                <div className="relative aspect-video w-4/5 mx-auto mt-4">
+                <div className="relative mx-auto mt-4 aspect-video w-4/5">
                   <Image
                     src={f.content.media.filename}
-                    alt={
-                      f.content.media.alt ?? f.content.title ?? ''
-                    }
+                    alt={f.content.media.alt ?? f.content.title ?? ''}
                     fill
                     className="object-contain"
                   />
@@ -80,23 +85,23 @@ export default function Features({ className, features }: FeaturesProps): JSX.El
       </div>
 
       {/* Pagination Dots with larger touch targets */}
-      <div className="flex justify-center space-x-4 mt-4">
+      <div className="mt-4 flex justify-center space-x-4">
         {Array.from({ length: totalSlides }).map((_, idx) => (
           <button
             key={idx}
             onClick={() => slider.current?.moveToIdx(idx)}
-            className="h-8 w-8 flex items-center justify-center rounded-full"
+            className="flex h-8 w-8 items-center justify-center rounded-full"
             aria-label={`Go to slide ${idx + 1}`}
           >
             <span
               className={clsx(
-                'block w-3 h-3 rounded-full transition-colors',
-                currentSlide === idx ? 'bg-gray-800' : 'bg-gray-400'
+                'block h-3 w-3 rounded-full transition-colors',
+                currentSlide === idx ? 'bg-gray-800' : 'bg-gray-400',
               )}
             />
           </button>
         ))}
       </div>
     </section>
-  );
+  )
 }

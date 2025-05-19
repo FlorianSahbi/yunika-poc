@@ -1,16 +1,12 @@
-import clsx from "clsx";
-import type { JSX } from "react";
+import clsx from 'clsx'
+import type { JSX } from 'react'
 
 interface BreadcrumbProps {
-  className?: string;
+  className?: string
 }
 
 export default function Breadcrumb({
   className,
 }: BreadcrumbProps): JSX.Element {
-  return (
-    <nav className={clsx(className, "text-sm text-gray-600")}>
-      Accueil / Snowboard / Home
-    </nav>
-  );
+  return <nav className={clsx(className, 'text-sm text-gray-600')} />
 }

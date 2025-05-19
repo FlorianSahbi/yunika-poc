@@ -8,13 +8,13 @@ import DoubleImage from '@/components/DoubleImages'
 import ImageEdito from '@/components/ImageEdito'
 
 export const getStoryblokApi = storyblokInit({
-    accessToken: process.env.STORYBLOK_TOKEN,
-    components: {
-        page: Page,
-        hero: Hero,
-        "double images": DoubleImage,
-        "image edito": ImageEdito,
-        header: Navigation,
-        footer: Footer,
-    },
+  accessToken: process.env.STORYBLOK_TOKEN,
+  components: {
+    page: Page,
+    hero: Hero,
+    'double images': DoubleImage,
+    'image edito': ImageEdito,
+    header: Navigation,
+    footer: Footer,
+  },
 })

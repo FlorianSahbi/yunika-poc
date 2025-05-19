@@ -1,11 +1,11 @@
-import clsx from "clsx";
-import Image from "next/image";
-import type { JSX } from "react";
-import type { MultiassetStoryblok } from "@/types/storyblok";
+import clsx from 'clsx'
+import Image from 'next/image'
+import type { JSX } from 'react'
+import type { MultiassetStoryblok } from '@/types/storyblok'
 
 interface ProductImageProps {
-  className?: string;
-  media: MultiassetStoryblok;
+  className?: string
+  media: MultiassetStoryblok
 }
 
 export default function ProductImage({
@@ -34,5 +34,5 @@ export default function ProductImage({
         ))}
       </div>
     </section>
-  );
+  )
 }

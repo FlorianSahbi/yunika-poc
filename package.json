@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --strict",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "pull-sb": "storyblok pull-components --space=338283",
     "gen-sb-types": "mkdir -p src/types && storyblok generate-typescript-typedefs --sourceFilePaths=./components.338283.json --destinationFilePath=./src/types/storyblok.d.ts",
     "build:sb-types": "mkdir -p src/types && storyblok pull-components --space=338283 && storyblok generate-typescript-typedefs --sourceFilePaths=./components.338283.json --destinationFilePath=./src/types/storyblok.d.ts"
@@ -19,6 +21,7 @@
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.509.0",
     "next": "^15.4.0-canary.30",
+    "next-intl": "^4.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "storyblok-js-client": "^6.10.12"
@@ -29,7 +32,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9.26.0",
     "eslint-config-next": "^15.3.2",
+    "eslint-plugin-react": "^7.37.5",
     "postcss": "^8",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

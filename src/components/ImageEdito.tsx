@@ -1,7 +1,10 @@
 import { storyblokEditable, StoryblokRichText } from '@storyblok/react/rsc'
 import React from 'react'
 import Image from 'next/image'
-import type { ImageEditoStoryblok, DoubleImagesBlockStoryblok } from '@/types/storyblok'
+import type {
+  ImageEditoStoryblok,
+  DoubleImagesBlockStoryblok,
+} from '@/types/storyblok'
 
 interface ImageEditoProps {
   blok: ImageEditoStoryblok
@@ -12,13 +15,13 @@ const ImageEdito: React.FC<ImageEditoProps> = ({ blok }) => {
 
   return (
     <section
-      className="grid grid-cols-12 gap-2 my-2"
+      className="my-2 grid grid-cols-12 gap-2"
       {...storyblokEditable(blok)}
     >
       {items.map((item, idx) => (
-        <div key={item._uid || idx} className="col-span-6 relative">
+        <div key={item._uid || idx} className="relative col-span-6">
           <div
-            className="relative aspect-[4/5] w-full overflow-hidden flex items-center justify-center rounded-lg"
+            className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-lg"
             style={item.color ? { backgroundColor: item.color } : undefined}
           >
             {!item.color && item.media && (
@@ -32,12 +35,12 @@ const ImageEdito: React.FC<ImageEditoProps> = ({ blok }) => {
 
             <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
               {item.title && (
-                <p className="text-4xl font-extrabold text-center text-white drop-shadow-lg">
+                <p className="text-center text-4xl font-extrabold text-white drop-shadow-lg">
                   {item.title}
                 </p>
               )}
               {item.rich && (
-                <div className="prose text-center mt-4 font-medium text-white">
+                <div className="prose mt-4 text-center font-medium text-white">
                   <StoryblokRichText doc={item.rich as never} />
                 </div>
               )}

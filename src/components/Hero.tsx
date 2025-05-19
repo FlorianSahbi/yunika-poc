@@ -6,7 +6,12 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import VideoBackground from './VideoBackground'
 import BigCta from './BigCta'
-import type { HeroStoryblok, SlideStoryblok, AssetStoryblok, ButtonStoryblok } from '@/types/storyblok'
+import type {
+  HeroStoryblok,
+  SlideStoryblok,
+  AssetStoryblok,
+  ButtonStoryblok,
+} from '@/types/storyblok'
 import Guard from './Guard'
 
 interface HeroProps {
@@ -15,11 +20,19 @@ interface HeroProps {
 
 const fadeInBackground = {
   hidden: { opacity: 0, scale: 1.05 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 1.2, ease: 'easeOut' } },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 1.2, ease: 'easeOut' },
+  },
 }
 const fadeInContent = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { delay: 0.4, duration: 0.8, ease: 'easeOut' } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay: 0.4, duration: 0.8, ease: 'easeOut' },
+  },
 }
 
 const Hero: React.FC<HeroProps> = ({ blok }) => {
@@ -31,36 +44,44 @@ const Hero: React.FC<HeroProps> = ({ blok }) => {
         <motion.section
           key={sec._uid || idx}
           aria-label={sec.title}
-          className="relative flex items-center justify-center h-screen w-full overflow-hidden"
+          className="relative flex h-screen w-full items-center justify-center overflow-hidden"
           initial="hidden"
           animate="visible"
           variants={{}}
         >
           <Guard cond={!!sec.background?.url}>
-            <motion.div className="absolute inset-0 -z-10" variants={fadeInBackground}>
+            <motion.div
+              className="absolute inset-0 -z-10"
+              variants={fadeInBackground}
+            >
               <VideoBackground
                 src={sec.background!.url}
-                className="object-cover absolute inset-0"
+                className="absolute inset-0 object-cover"
               />
-              <div className="absolute inset-0 bg-black opacity-20 pointer-events-none" />
+              <div className="pointer-events-none absolute inset-0 bg-black opacity-20" />
             </motion.div>
           </Guard>
 
-          <motion.div className="relative z-10 text-center px-6 max-w-2xl space-y-6" variants={fadeInContent}>
-            {('topImage' in sec && (sec).topImage) && (() => {
-              const topImg = (sec).topImage as AssetStoryblok
-              return (
-                <Image
-                  src={topImg.filename || ''}
-                  alt={topImg.alt || ''}
-                  fill
-                  className="object-cover object-center absolute inset-0 -z-10"
-                />
-              )
-            })()}
+          <motion.div
+            className="relative z-10 max-w-2xl space-y-6 px-6 text-center"
+            variants={fadeInContent}
+          >
+            {'topImage' in sec &&
+              sec.topImage &&
+              (() => {
+                const topImg = sec.topImage as AssetStoryblok
+                return (
+                  <Image
+                    src={topImg.filename || ''}
+                    alt={topImg.alt || ''}
+                    fill
+                    className="absolute inset-0 -z-10 object-cover object-center"
+                  />
+                )
+              })()}
 
             <motion.h2
-              className="text-5xl lg:text-6xl font-extrabold text-white"
+              className="text-5xl font-extrabold text-white lg:text-6xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8, ease: 'easeOut' }}
@@ -70,7 +91,7 @@ const Hero: React.FC<HeroProps> = ({ blok }) => {
 
             {sec.subtitle && (
               <motion.p
-                className="text-lg lg:text-2xl text-gray-200"
+                className="text-lg text-gray-200 lg:text-2xl"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.7, ease: 'easeOut' }}
@@ -79,9 +100,18 @@ const Hero: React.FC<HeroProps> = ({ blok }) => {
               </motion.p>
             )}
 
-            <motion.div className="flex flex-wrap justify-center gap-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0, duration: 0.6, ease: 'easeOut' }}>
+            <motion.div
+              className="flex flex-wrap justify-center gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.0, duration: 0.6, ease: 'easeOut' }}
+            >
               {sec.buttons?.map((button: ButtonStoryblok, i: number) => (
-                <BigCta key={button._uid || i} href={button.link?.url || '#'} color="primary">
+                <BigCta
+                  key={button._uid || i}
+                  href={button.link?.url || '#'}
+                  color="primary"
+                >
                   {button.label}
                 </BigCta>
               ))}

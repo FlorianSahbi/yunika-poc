@@ -5,12 +5,12 @@ import { StoryblokServerComponent } from '@storyblok/react/rsc'
 import { fetchStories } from '@/utils/fetchStories'
 import { CartProvider } from '@/components/CartContext'
 import CartPanel from '@/components/CartPanel'
+import { NextIntlClientProvider, hasLocale } from 'next-intl'
+import { notFound } from 'next/navigation'
+import { routing } from '@/i18n/routing'
 
 import type { ISbStoryData } from '@storyblok/react/rsc'
-import type {
-  HeaderStoryblok,
-  FooterStoryblok
-} from '@/types/storyblok'
+import type { HeaderStoryblok, FooterStoryblok } from '@/types/storyblok'
 import type { JSX } from 'react'
 import { Metadata } from 'next'
 
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         alt: 'Storyblok Snowboard Shop',
       },
     ],
-    locale: 'en_US',
+    locale: 'en',
     type: 'website',
   },
   twitter: {
@@ -47,16 +47,20 @@ export const metadata: Metadata = {
   },
 }
 
-type Lang = 'fr' | 'en';
+type Lang = 'fr' | 'en'
 
 export default async function RootLayout({
   children,
-  params
+  params,
 }: {
-  children: React.ReactNode,
-  params: { lang: Lang; slug: string };
+  children: React.ReactNode
+  params: { lang: Lang; slug: string }
 }): Promise<JSX.Element> {
-  const { lang } = await params;
+  const { lang } = await params
+
+  if (!hasLocale(routing.locales, lang)) {
+    notFound()
+  }
 
   const [hdrResult, ftrResult] = await Promise.all([
     (async () => {
@@ -64,11 +68,11 @@ export default async function RootLayout({
         const { stories } = await fetchStories<HeaderStoryblok>(
           'published',
           'global',
-          { locale: lang }
+          { locale: lang },
         )
         return stories.find(
           (s): s is ISbStoryData<HeaderStoryblok> =>
-            s.content.component === 'header'
+            s.content.component === 'header',
         )
       } catch {
         return undefined
@@ -80,11 +84,11 @@ export default async function RootLayout({
         const { stories } = await fetchStories<FooterStoryblok>(
           'published',
           'global',
-          { locale: lang }
+          { locale: lang },
         )
         return stories.find(
           (s): s is ISbStoryData<FooterStoryblok> =>
-            s.content.component === 'footer'
+            s.content.component === 'footer',
         )
       } catch {
         return undefined
@@ -96,28 +100,30 @@ export default async function RootLayout({
   const footer = ftrResult
 
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body className={`${rajdhani.variable} font-sans antialiased`}>
         <StoryblokProvider>
-          <CartProvider>
-            {header && (
-              <StoryblokServerComponent
-                key={header.content._uid}
-                blok={header.content}
-              />
-            )}
+          <NextIntlClientProvider>
+            <CartProvider>
+              {header && (
+                <StoryblokServerComponent
+                  key={header.content._uid}
+                  blok={header.content}
+                />
+              )}
 
-            {children}
+              {children}
 
-            {footer && (
-              <StoryblokServerComponent
-                key={footer.content._uid}
-                blok={footer.content}
-              />
-            )}
+              {footer && (
+                <StoryblokServerComponent
+                  key={footer.content._uid}
+                  blok={footer.content}
+                />
+              )}
 
-            <CartPanel />
-          </CartProvider>
+              <CartPanel />
+            </CartProvider>
+          </NextIntlClientProvider>
         </StoryblokProvider>
       </body>
     </html>

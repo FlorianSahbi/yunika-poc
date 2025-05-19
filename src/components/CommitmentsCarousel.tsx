@@ -1,53 +1,53 @@
-'use client';
+'use client'
 
-import React, { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
-import { useKeenSlider, KeenSliderInstance } from 'keen-slider/react';
-import 'keen-slider/keen-slider.min.css';
-import clsx from 'clsx';
-import type { CommitmentStoryblok } from '@/types/storyblok';
+import React, { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
+import { useKeenSlider, KeenSliderInstance } from 'keen-slider/react'
+import 'keen-slider/keen-slider.min.css'
+import clsx from 'clsx'
+import type { CommitmentStoryblok } from '@/types/storyblok'
 
 interface CommitmentsCarouselProps {
-  commitments: CommitmentStoryblok[];
+  commitments: CommitmentStoryblok[]
 }
 
 export default function CommitmentsCarousel({
   commitments,
 }: CommitmentsCarouselProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = commitments.length;
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isHovering = useRef<boolean>(false);
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const totalSlides = commitments.length
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isHovering = useRef<boolean>(false)
 
   const autoplayPlugin = (slider: KeenSliderInstance) => {
     function clearNextTimeout() {
       if (timerRef.current) {
-        clearTimeout(timerRef.current);
+        clearTimeout(timerRef.current)
       }
     }
     function nextTimeout() {
-      clearNextTimeout();
-      if (isHovering.current) return;
+      clearNextTimeout()
+      if (isHovering.current) return
       timerRef.current = setTimeout(() => {
-        slider.next();
-      }, 3000);
+        slider.next()
+      }, 3000)
     }
 
     slider.on('created', () => {
       slider.container.addEventListener('mouseover', () => {
-        isHovering.current = true;
-        clearNextTimeout();
-      });
+        isHovering.current = true
+        clearNextTimeout()
+      })
       slider.container.addEventListener('mouseout', () => {
-        isHovering.current = false;
-        nextTimeout();
-      });
-      nextTimeout();
-    });
-    slider.on('dragStarted', clearNextTimeout);
-    slider.on('animationEnded', nextTimeout);
-    slider.on('updated', nextTimeout);
-  };
+        isHovering.current = false
+        nextTimeout()
+      })
+      nextTimeout()
+    })
+    slider.on('dragStarted', clearNextTimeout)
+    slider.on('animationEnded', nextTimeout)
+    slider.on('updated', nextTimeout)
+  }
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>(
     {
@@ -60,19 +60,19 @@ export default function CommitmentsCarousel({
         },
       },
       slideChanged(s) {
-        setCurrentSlide(s.track.details.rel);
+        setCurrentSlide(s.track.details.rel)
       },
     },
-    [autoplayPlugin]
-  );
+    [autoplayPlugin],
+  )
 
   useEffect(() => {
     return () => {
       if (timerRef.current) {
-        clearTimeout(timerRef.current);
+        clearTimeout(timerRef.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   return (
     <div className="container mx-auto py-8">
@@ -84,7 +84,7 @@ export default function CommitmentsCarousel({
               className="keen-slider__slide flex flex-col items-center px-4"
             >
               {item.media?.filename && (
-                <div className="bg-white rounded-full w-12 h-12 relative">
+                <div className="relative h-12 w-12 rounded-full bg-white">
                   <Image
                     src={item.media.filename}
                     alt={item.media.alt ?? ''}
@@ -95,12 +95,10 @@ export default function CommitmentsCarousel({
                 </div>
               )}
               {item.title && (
-                <p className="mt-2 font-semibold text-center">
-                  {item.title}
-                </p>
+                <p className="mt-2 text-center font-semibold">{item.title}</p>
               )}
               {item.subtitle && (
-                <p className="mt-1 text-sm text-gray-200 text-center">
+                <p className="mt-1 text-center text-sm text-gray-200">
                   {item.subtitle}
                 </p>
               )}
@@ -113,12 +111,12 @@ export default function CommitmentsCarousel({
               key={idx}
               onClick={() => slider.current?.moveToIdx(idx)}
               aria-label={`Go to slide ${idx + 1}`}
-              className="h-12 w-12 flex items-center justify-center rounded-full"
+              className="flex h-12 w-12 items-center justify-center rounded-full"
             >
               <span
                 className={clsx(
-                  'block w-2 h-2 rounded-full transition-colors',
-                  currentSlide === idx ? 'bg-[#038674]' : 'bg-white'
+                  'block h-2 w-2 rounded-full transition-colors',
+                  currentSlide === idx ? 'bg-[#038674]' : 'bg-white',
                 )}
               />
             </button>
@@ -126,11 +124,11 @@ export default function CommitmentsCarousel({
         </div>
       </div>
 
-      <div className="hidden md:grid md:grid-cols-3 gap-6">
+      <div className="hidden gap-6 md:grid md:grid-cols-3">
         {commitments.map((item) => (
           <div key={item._uid} className="flex flex-col items-center">
             {item.media?.filename && (
-              <div className="bg-white rounded-full w-12 h-12 relative">
+              <div className="relative h-12 w-12 rounded-full bg-white">
                 <Image
                   src={item.media.filename}
                   alt={item.media.alt ?? ''}
@@ -140,12 +138,12 @@ export default function CommitmentsCarousel({
               </div>
             )}
             {item.title && (
-              <p className="mt-2 font-semibold text-center uppercase">
+              <p className="mt-2 text-center font-semibold uppercase">
                 {item.title}
               </p>
             )}
             {item.subtitle && (
-              <p className="text-sm text-gray-200 text-center">
+              <p className="text-center text-sm text-gray-200">
                 {item.subtitle}
               </p>
             )}
@@ -153,5 +151,5 @@ export default function CommitmentsCarousel({
         ))}
       </div>
     </div>
-  );
+  )
 }

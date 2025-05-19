@@ -2,29 +2,37 @@ import { storyblokEditable } from '@storyblok/react/rsc'
 import React, { JSX } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import type { DoubleImagesStoryblok, DoubleImagesBlockStoryblok, CtaStoryblok, AssetStoryblok } from '@/types/storyblok'
+import type {
+  DoubleImagesStoryblok,
+  DoubleImagesBlockStoryblok,
+  CtaStoryblok,
+  AssetStoryblok,
+} from '@/types/storyblok'
 
 interface DoubleImagesProps {
   blok: DoubleImagesStoryblok
 }
 
-export default function DoubleImages({ blok }: DoubleImagesProps): JSX.Element | null {
+export default function DoubleImages({
+  blok,
+}: DoubleImagesProps): JSX.Element | null {
   const items: DoubleImagesBlockStoryblok[] = blok.items ?? []
   if (items.length === 0) return null
 
   return (
     <section
-      className="grid grid-cols-12 gap-2 mt-2"
+      className="mt-2 grid grid-cols-12 gap-2"
       {...storyblokEditable(blok)}
     >
       {items.map((item, idx) => {
-        const media: AssetStoryblok | undefined = 'media' in item ? item.media : undefined
+        const media: AssetStoryblok | undefined =
+          'media' in item ? item.media : undefined
         const ctaList: CtaStoryblok[] = item.cta ?? []
         const firstUrl = ctaList[0]?.link?.cached_url ?? '#'
 
         return (
-          <div key={item._uid ?? idx} className="col-span-6 relative group">
-            <Link href={`/${firstUrl}`}> 
+          <div key={item._uid ?? idx} className="group relative col-span-6">
+            <Link href={`/${firstUrl}`}>
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg">
                 {media?.filename && (
                   <Image
@@ -36,13 +44,13 @@ export default function DoubleImages({ blok }: DoubleImagesProps): JSX.Element |
                   />
                 )}
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
 
-                <div className="absolute bottom-0 left-0 p-4 pointer-events-none">
+                <div className="pointer-events-none absolute bottom-0 left-0 p-4">
                   {item.title && (
-                    <h2 className="text-4xl font-extrabold text-white inline-block relative">
+                    <h2 className="relative inline-block text-4xl font-extrabold text-white">
                       <span className="relative z-10">{item.title}</span>
-                      <span className="absolute left-0 bottom-0 h-1 w-full bg-white scale-x-0 origin-left transform transition-transform duration-300 group-hover:scale-x-100" />
+                      <span className="absolute bottom-0 left-0 h-1 w-full origin-left scale-x-0 transform bg-white transition-transform duration-300 group-hover:scale-x-100" />
                     </h2>
                   )}
 
