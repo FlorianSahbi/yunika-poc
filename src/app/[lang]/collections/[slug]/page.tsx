@@ -87,13 +87,19 @@ export default async function CollectionsPage({
   return (
     <main>
       <section className="relative h-[70vh] w-full overflow-hidden">
-        <Image
-          src="https://a.storyblok.com/f/338283/2560x1374/71026cd960/yunika-1.webp"
-          alt="Bannière collection"
-          fill
-          className="object-cover"
-          priority
-        />
+        {pageData &&
+          pageData.content &&
+          pageData?.content?.media &&
+          pageData?.content?.media?.filename &&
+          pageData?.content?.media?.alt && (
+            <Image
+              src={pageData?.content?.media?.filename}
+              alt={pageData?.content?.media?.alt}
+              fill
+              className="object-cover"
+              priority
+            />
+          )}
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
           {title && (

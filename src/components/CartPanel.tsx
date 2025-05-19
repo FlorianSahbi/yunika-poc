@@ -104,7 +104,7 @@ export default function CartPanel() {
 
             <div className="border-t border-gray-300 p-4">
               <button className="w-full rounded bg-black py-3 font-semibold uppercase text-white">
-                {t('addToCart')} {separators[1]} {hardCodedPrice}
+                {t('completeOrder')} {separators[1]} {hardCodedPrice}
               </button>
             </div>
           </motion.aside>

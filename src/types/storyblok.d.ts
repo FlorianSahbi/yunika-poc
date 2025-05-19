@@ -61,6 +61,7 @@ export interface CamberStoryblok {
 }
 
 export interface CollectionStoryblok {
+  media?: AssetStoryblok
   title?: string
   subtitle?: string
   products?: (ISbStoryData<SnowboardStoryblok> | string)[]
@@ -175,7 +176,7 @@ export interface DetailsStoryblok {
 }
 
 export interface DoubleImagesStoryblok {
-  items?: DoubleImagesBlockStoryblok[]
+  items?: (ISbStoryData<CollectionStoryblok> | string)[]
   component: 'double images'
   _uid: string
   [k: string]: any
@@ -188,6 +189,10 @@ export interface DoubleImagesBlockStoryblok {
   title?: string
   subtitle?: string
   rich?: RichtextStoryblok
+  item?:
+    | ISbStoryData<SnowboardStoryblok>
+    | ISbStoryData<CollectionStoryblok>
+    | string
   component: 'double images block'
   _uid: string
   [k: string]: any
@@ -365,8 +370,8 @@ export interface SnowboardStoryblok {
   rating?: RatingStoryblok[]
   camber?: CamberStoryblok[]
   artist?: ISbStoryData<ArtistStoryblok> | string
-  tech?: TechStoryblok[]
   features?: any[]
+  tech?: TechStoryblok[]
   component: 'snowboard'
   _uid: string
   [k: string]: any

@@ -16,7 +16,15 @@ export async function fetchStory<T>(
   url.searchParams.set('token', process.env.STORYBLOK_TOKEN!)
   url.searchParams.set(
     'resolve_relations',
-    'snowboard.types,snowboard.artist,collection.products,collection.collections,snowboard.features,collection.products.types',
+    [
+      'snowboard.types',
+      'snowboard.artist',
+      'collection.products',
+      'collection.collections',
+      'snowboard.features',
+      'collection.products.types',
+      'double images.items',
+    ].join(','),
   )
 
   const nextLocale = options?.locale
