@@ -15,13 +15,16 @@ const ImageEdito: React.FC<ImageEditoProps> = ({ blok }) => {
 
   return (
     <section
-      className="my-2 grid grid-cols-12 gap-2"
+      className="grid grid-cols-12 gap-0 sm:my-2 md:gap-2"
       {...storyblokEditable(blok)}
     >
       {items.map((item, idx) => (
-        <div key={item._uid || idx} className="relative col-span-6">
+        <div
+          key={item._uid || idx}
+          className="relative col-span-12 md:col-span-6"
+        >
           <div
-            className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-lg"
+            className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden md:rounded-lg"
             style={item.color ? { backgroundColor: item.color } : undefined}
           >
             {!item.color && item.media && (
