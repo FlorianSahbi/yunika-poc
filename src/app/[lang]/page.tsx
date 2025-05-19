@@ -3,13 +3,10 @@ import { fetchStory } from '@/utils/fetchStory'
 import type { PageStoryblok } from '@/types/storyblok'
 import { notFound } from 'next/navigation'
 import type { JSX } from 'react'
+import { routing } from '@/i18n/routing'
 
-export const dynamic = 'force-static'
-export const dynamicParams = false
-export const revalidate = false
-
-export function generateStaticParams() {
-  return [{ lang: 'fr' }, { lang: 'en' }]
+export async function generateStaticParams() {
+  return routing.locales.map((locale) => ({ lang: locale }))
 }
 
 interface PageProps {
