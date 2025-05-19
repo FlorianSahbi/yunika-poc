@@ -92,7 +92,12 @@ export default function CartPanel() {
                       {t('quantity')} {separators[0]} {p.quantity}
                     </p>
                   </div>
-                  <div className="text-sm font-semibold">{p.price}</div>
+                  <div className="text-sm font-semibold">
+                    {new Intl.NumberFormat(locale, {
+                      style: 'currency',
+                      currency: currency,
+                    }).format(p.price)}
+                  </div>
                 </div>
               ))}
             </div>
