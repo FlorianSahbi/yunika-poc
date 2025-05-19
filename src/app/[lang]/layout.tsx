@@ -21,19 +21,20 @@ const rajdhani = Rajdhani({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://yunika-poc.vercel.app'),
   title: 'Yunika Boards | Welcome',
   description: 'Découvrez notre collection de snowboards artisanaux',
   openGraph: {
-    title: 'My Storyblok Shop',
+    title: 'Yunika POC',
     description: 'Découvrez notre collection de snowboards artisanaux',
-    url: 'https://yunika-poc',
-    siteName: 'Storyblok Shop',
+    url: 'https://yunika-poc.vercel.app',
+    siteName: 'Yunika Boards',
     images: [
       {
-        url: 'https://yunika-poc/og-image.jpg',
+        url: 'https://yunika-poc.vercel.app/yunika-metadata.jpg',
         width: 1200,
         height: 630,
-        alt: 'Storyblok Snowboard Shop',
+        alt: 'Yunika Boards',
       },
     ],
     locale: 'en',
@@ -43,7 +44,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Yunika Boards | Welcome',
     description: 'Découvrez notre collection de snowboards artisanaux',
-    images: ['https://yunika-poc/og-image.jpg'],
+    images: ['https://yunika-poc.vercel.app/yunika-metadata.jpg'],
+  },
+  icons: {
+    icon: '/favicon.ico',
   },
 }
 
