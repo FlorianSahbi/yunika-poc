@@ -5,7 +5,7 @@ import { StoryblokServerComponent } from '@storyblok/react/rsc'
 import { fetchStories } from '@/utils/fetchStories'
 import { CartProvider } from '@/components/CartContext'
 import CartPanel from '@/components/CartPanel'
-import { NextIntlClientProvider, hasLocale } from 'next-intl'
+import { Locale, NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 
@@ -53,14 +53,16 @@ export const metadata: Metadata = {
   },
 }
 
-type Lang = 'fr' | 'en'
+export async function generateStaticParams() {
+  return routing.locales.map((locale) => ({ lang: locale }))
+}
 
 export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode
-  params: { lang: Lang; slug: string }
+  params: { lang: Locale; slug: string }
 }): Promise<JSX.Element> {
   const { lang } = await params
 
