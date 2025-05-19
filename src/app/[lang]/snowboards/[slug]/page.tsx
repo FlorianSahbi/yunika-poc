@@ -77,8 +77,6 @@ export default async function SnowboardPage({
     notFound()
   }
 
-  console.log(pageData)
-
   const { media = [], camber = [], tech = [], features = [] } = pageData.content
 
   return (
