@@ -46,6 +46,11 @@ export const metadata: Metadata = {
     description: 'Découvrez notre collection de snowboards artisanaux',
     images: ['https://yunika-poc.vercel.app/yunika-metadata.jpg'],
   },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-icon.png',
+    shortcut: '/favicon.ico',
+  },
 }
 
 type Lang = 'fr' | 'en'
