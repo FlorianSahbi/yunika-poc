@@ -18,7 +18,7 @@ export async function generateMetadata({
 }: {
   params: { lang: Locale; slug: string }
 }): Promise<Metadata> {
-  const { lang, slug } = params
+  const { lang, slug } = await params
   let pageData: ISbStoryData<SnowboardStoryblok>
   try {
     pageData = await fetchStory<SnowboardStoryblok>(
